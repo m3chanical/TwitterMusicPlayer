@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="OverRideMaterial" parent="android:Theme.Material">
+        <item name="android:colorPrimary">@color/lightblue</item>
+        <item name="android:colorPrimaryDark">@color/darkblue</item>
+        <item name="android:navigationBarColor">@color/darkblue</item>
+        <item name="android:windowBackground">@color/backgroundblue</item>
+    </style>
+
+</resources>

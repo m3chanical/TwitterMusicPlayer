@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Twitter Music Player</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_idea">I Have No Idea What I\'m Doing</string>
+    <string name="test_string">Test Music Intent</string>
+    <string name="launch_service">Launch Service</string>
+</resources>
