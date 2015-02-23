@@ -162,6 +162,5 @@ public class MainActivity extends Activity {
 
         TweetPullService pullService = new TweetPullService("Sandwiches");
         Intent serviceIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
-        pullService.onHandleIntent(serviceIntent);
     }
 }
