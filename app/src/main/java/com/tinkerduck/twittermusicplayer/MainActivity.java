@@ -1,15 +1,19 @@
 package com.tinkerduck.twittermusicplayer;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.SearchManager;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.twitter.sdk.android.Twitter;
@@ -24,6 +28,7 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.core.services.StatusesService;
+import com.twitter.sdk.android.tweetui.CompactTweetView;
 import com.twitter.sdk.android.tweetui.TweetView;
 
 import java.util.ArrayList;
@@ -38,10 +43,8 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends Activity {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "0gufvnbrcuqDQcJ67ZOk3FpW1";
-    private static final String TWITTER_SECRET = "aiRAfpseomK5qqMZdpLrzc4FUB9DiQh1UG2E71UlzJs8IqEAfx";
-    TweetPullService pullService;
-    TwitterSession session;
+    private static final String TWITTER_KEY = "Ds3KRr33K0yLuY9ua0VDwDxaK";
+    private static final String TWITTER_SECRET = "r94P4aHNsYK0rgWcGch8wnmFXcXGedOOOwlQPae7ejVKO0B79Y";
     public String[] splitTweet;
     public ArrayList<String> splitTweetList = new ArrayList<>();
 
@@ -50,13 +53,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TwitterLoginButton loginButton = (TwitterLoginButton) findViewById(R.id.login_button);
-        final Button testButton = (Button) findViewById(R.id.test_button);
-        Button serviceButton = (Button) findViewById(R.id.service_button);
-
-        testButton.setEnabled(false);
-        serviceButton.setEnabled(false);
-
-
         loginButton.setEnabled(true);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
@@ -65,11 +61,12 @@ public class MainActivity extends Activity {
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> twitterSessionResult) {
-                session = Twitter.getSessionManager().getActiveSession();
+                TwitterSession session =
+                        Twitter.getSessionManager().getActiveSession();
                 TwitterAuthToken authToken = session.getAuthToken();
                 final String token = authToken.token;
                 final String secret = authToken.secret;
-                testButton.setEnabled(true);
+
                 getMentions(myLayout);
 
             }
@@ -161,9 +158,10 @@ public class MainActivity extends Activity {
     }
 
     public void launchService(View view) {
-        final LinearLayout myLayout = (LinearLayout) findViewById(R.id.tweet_layout);
-        getMentions(myLayout);
+        Toast.makeText(MainActivity.this, "Hey Look I'm a button!", Toast.LENGTH_SHORT).show();
 
-        pullService.startService(new Intent(this, TweetPullService.class));
+        TweetPullService pullService = new TweetPullService("Sandwiches");
+        Intent serviceIntent = new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+        pullService.onHandleIntent(serviceIntent);
     }
 }
