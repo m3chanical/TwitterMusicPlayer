@@ -43,8 +43,7 @@ import io.fabric.sdk.android.Fabric;
 public class MainActivity extends Activity {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "Ds3KRr33K0yLuY9ua0VDwDxaK";
-    private static final String TWITTER_SECRET = "r94P4aHNsYK0rgWcGch8wnmFXcXGedOOOwlQPae7ejVKO0B79Y";
+    
     public String[] splitTweet;
     public ArrayList<String> splitTweetList = new ArrayList<>();
 
